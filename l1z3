@@ -1,0 +1,11 @@
+#!/bin/bash
+
+words=$(for file in $(find $1 -type f); do
+cat $file | tr ' ' '\n'
+done | sort | uniq)
+
+for word in $words; do
+	for file in $(find $1 -type f); do
+		cat $file | grep -ohw -m 1 $word 2> /dev/null | uniq
+	done
+done | uniq -c
