@@ -1,16 +1,12 @@
 #!/bin/bash
 
-a='ala'
-grep $a.*$a $1
-echo 'AAA'
 words=$(for file in $(find $1 -type f); do
 	cat $file | tr ' ' '\n'
 done | sort | uniq)
 
-echo $words
-
 for word in $words; do
 	for file in $(find $1 -type f); do
-		 grep -Hw $word[[:space:]].*[[:space:]]$word $file 2> /dev/null | sed "s/.*/$word &/" | sort 
+		grep -Hw $word[[:space:]].*[[:space:]]*$word $file 2>/dev/null | sed "s/.*/$word &/" | sort
 	done
 done 
+
